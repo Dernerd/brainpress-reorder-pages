@@ -48,11 +48,11 @@ function ema_modal_window_admin_style($hook) {
 		<!-- ema-modal -->
 			<div class="ema-modal">
 				<header class="ema-modal-header">
-					<h1 class="ema-modal-header-title left">Reorder Unit Sections (Pages) of UNIT: <span class="ema-unit-name"></span></h1>
+					<h1 class="ema-modal-header-title left">Einheitenabschnitte der EINHEIT neu anordnen: <span class="ema-unit-name"></span></h1>
 					<div class="ema-modal-header-buttons">
-						<button class="ema-modal-header-btn ema-modal-close" title="Close Modal" onclick=EmaModal.close();>Cancel</button>
+						<button class="ema-modal-header-btn ema-modal-close" title="Modal schließen" onclick=EmaModal.close();>Cancel</button>
 						<form id="ema-reorder-form" method="get" onsubmit="return emaValidateReorderData()" action="<?php echo ((isset($_SERVER['HTTPS']) ? "https" : "http") . "://".$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'])?>">
-							<input type="submit" class="ema-modal-header-btn ema-modal-close" value="Reorder!" onclick=EmaModal.close();>
+							<input type="submit" class="ema-modal-header-btn ema-modal-close" value="Neuordnen!" onclick=EmaModal.close();>
 							<?php 
 							// get the actual parameter and put them in hidden fields
 							foreach( $_GET as $var => $val) {
@@ -68,9 +68,9 @@ function ema_modal_window_admin_style($hook) {
 				</header>
 				<div class="ema-modal-body">
 					<section class="ema-modal-content">
-						<p class="ema-red-alert">Reordering only works for BrainPress Version 2.1.x (tested up to 2.1.0.1)<br>If your BrainPress Version is older:<br><span class="ema-bigger">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Don't do it!</span></p>
-						<p class="ema-red-alert">Have you saved your units? All unsaved changes will be lost!!</p>
-						<p>Please reorder your pages by drag and drop. Then click the <em>Reorder!</em> button.</p>
+						<p class="ema-red-alert">Neuordnen ist eine vorübergehende Lösung für BrainPress</p>
+						<p class="ema-red-alert">Hast Du Deine Einheiten gespeichert? Alle nicht gespeicherten Änderungen gehen verloren!</p>
+						<p>Bitte ordne Deine Seiten per Drag & Drop neu. Klicke dann auf die <em>Neuordnen!</em> Schaltfläche.</p>
 						<ol id="ema-page-list" class="slippylist" tabindex="0">
 						</ol>
 					</section>
@@ -85,7 +85,7 @@ function ema_modal_window_admin_style($hook) {
 
 				var emaButtonEnvelope = document.createElement('div');
 				emaButtonEnvelope.setAttribute('class', 'ema-button-envelope');
-				emaButtonEnvelope.innerHTML = '<button class="ema-modal-header-btn ema-modal-trigger btn-fixed" onclick=emaPrepareAndOpenModal();>Reorder Pages</button>';
+				emaButtonEnvelope.innerHTML = '<button class="ema-modal-header-btn ema-modal-trigger btn-fixed" onclick=emaPrepareAndOpenModal();>Einheiten neu anordnen</button>';
 				var	emaFind = document.querySelector('h1.wp-heading-inline'); 
 				emaFind.appendChild(emaButtonEnvelope);
 				
@@ -120,7 +120,7 @@ function ema_modal_window_admin_style($hook) {
 		
 		$test = false;
 		
-		if($test) print("<p>check: $check</p>");
+		if($test) print("<p>prüfen: $check</p>");
 		
 		// create redirect URL (URL without ema... variables)
 		// this is where we redirect to at the end
@@ -192,19 +192,19 @@ function ema_modal_window_admin_style($hook) {
 			print_r($trans); print('<br>');
 			print("transprint: $transprint");
 		}
-		if ($test) print('<br><br>Course Visible Units<br>');
+		if ($test) print('<br><br>Kurs sichtbare Einheiten<br>');
 		$cp_structure_visible_units_array = unserialize($courseMeta['cp_structure_visible_units'][0]);
 		if ($test) { print_r( $cp_structure_visible_units_array );print("<br>");
 					 print_r($courseSettings['structure_visible_units']); }
 		
 		
-		if ($test) print('<br><br>Course Preview Units<br>');
+		if ($test) print('<br><br>Kurs Einheiten-Vorschau<br>');
 		$cp_structure_preview_units_array = unserialize($courseMeta['cp_structure_preview_units'][0]);
 		if ($test) { print_r( $cp_structure_preview_units_array );print("<br>");
 					 print_r($courseSettings['structure_preview_units']); }
 		
 		
-		if ($test) print("<br><br>Course Visible Pages<br>");
+		if ($test) print("<br><br>Sichtbare Einheiten des Kurses<br>");
 		$cp_structure_visible_pages_array =  unserialize( $courseMeta['cp_structure_visible_pages'][0] );
 		if(!isset($cp_structure_visible_pages_array) || is_null($cp_structure_visible_pages_array)) 
 			$cp_structure_visible_pages_array = [];
@@ -216,7 +216,7 @@ function ema_modal_window_admin_style($hook) {
 				if(array_key_exists($tmparr[1] , $trans))
 					$upmNew = $tmparr[0].'_'.$trans[$tmparr[1]];
 				else
-					$errortext .= "<p>Error EMA01 'visible pages': Old page no $tmparr[1] (from $upm) does not exist in transform array $transprint</p>";
+					$errortext .= "<p>Fehler EMA01 'sichtbare Seiten': Alte Seite Nr $tmparr[1] (von $upm) existiert nicht im Transformationsarray $transprint</p>";
 				$trans_cp_structure_visible_pages_array[$upmNew] = $visibility;
 			} else {
 				$trans_cp_structure_visible_pages_array[$upm] = $visibility;
@@ -232,7 +232,7 @@ function ema_modal_window_admin_style($hook) {
 		$courseSettings['structure_visible_pages'] = $trans_cp_structure_visible_pages_array;
 					 
 		
-		if ($test) print("<br><br>Course Preview Pages<br>");
+		if ($test) print("<br><br>Kurs Einheiten-Vorschau<br>");
 		$cp_structure_preview_pages_array =  unserialize( $courseMeta['cp_structure_preview_pages'][0] );
 		if(!isset($cp_structure_preview_pages_array) || is_null($cp_structure_preview_pages_array)) 
 			$cp_structure_preview_pages_array = [];
@@ -244,7 +244,7 @@ function ema_modal_window_admin_style($hook) {
 				if(array_key_exists($tmparr[1] , $trans))
 					$upmNew = $tmparr[0].'_'.$trans[$tmparr[1]];
 				else
-					$errortext .= "<p>Error EMA02 'preview pages': Old page no $tmparr[1] (from $upm) does not exist in transform array $transprint</p>";
+					$errortext .= "<p>Fehler EMA02 'Vorschaueinheiten': Alte Seite Nr $tmparr[1] (von $upm) existiert nicht im Transformationsarray $transprint</p>";
 				$trans_cp_structure_preview_pages_array[$upmNew] = $visibility;
 			} else {
 				$trans_cp_structure_preview_pages_array[$upm] = $visibility;
@@ -260,7 +260,7 @@ function ema_modal_window_admin_style($hook) {
 	 	$courseSettings['structure_preview_pages'] = $trans_cp_structure_preview_pages_array;
 	 
 									 
-		if ($test) print("<br><br>Course Visible Modules<br>");
+		if ($test) print("<br><br>Kurs sichtbare Module<br>");
 		$cp_structure_visible_modules_array =  unserialize( $courseMeta['cp_structure_visible_modules'][0]);
 		if(!isset($cp_structure_visible_modules_array) || is_null($cp_structure_visible_modules_array))
 			$cp_structure_visible_modules_array = [];
@@ -272,7 +272,7 @@ function ema_modal_window_admin_style($hook) {
 				if(array_key_exists($tmparr[1] , $trans))
 					$transd = $trans[$tmparr[1]];
 				else
-					$errortext .= "<p>Error EMA03 'visible modules': Old page no $tmparr[1] (from $upm) does not exist in transform array $transprint</p>";
+					$errortext .= "<p>Fehler EMA03 'Sichtbare Module': Alte Seite Nr $tmparr[1] (von $upm) existiert nicht im Transformationsarray $transprint</p>";
 				if( "$transd" != "$tmparr[1]") {
 					$upmNew = $tmparr[0].'_'.$transd.'_'.$tmparr[2];
 					$trans_cp_structure_visible_modules_array[$upmNew] = $visibility;
@@ -291,7 +291,7 @@ function ema_modal_window_admin_style($hook) {
 		$courseSettings['structure_visible_modules'] = $trans_cp_structure_visible_modules_array;
 			  		 
 		
-		if ($test) { print("<br><br>Course Preview Modules<br>"); }
+		if ($test) { print("<br><br>Kurs Vorschau-Module<br>"); }
 		$cp_structure_preview_modules_array =  unserialize( $courseMeta['cp_structure_preview_modules'][0]);
 		if(!isset($cp_structure_preview_modules_array) || is_null($cp_structure_preview_modules_array))
 			$cp_structure_preview_modules_array = [];
@@ -304,7 +304,7 @@ function ema_modal_window_admin_style($hook) {
 				if(array_key_exists($tmparr[1] , $trans))
 					$transd = $trans[$tmparr[1]];
 				else
-					$errortext .= "<p>Error EMA04 'preview modules': Old page no $tmparr[1] (from $upm) does not exist in transform array $transprint</p>";
+					$errortext .= "<p>Fehler EMA04 'Vorschau-Module': Alte Seite Nr $tmparr[1] (von $upm) existiert nicht im Transformationsarray $transprint</p>";
 				if( "$transd" != "$tmparr[1]") {
 					$upmNew = $tmparr[0].'_'.$transd.'_'.$tmparr[2];
 					$trans_cp_structure_preview_modules_array[$upmNew] = $visibility;
@@ -331,7 +331,7 @@ function ema_modal_window_admin_style($hook) {
 		//  Data from affected modules -----------------------------------
 		//	these are all posts, which have the unit as parent and are of type module
 		
-		if ($test) { print("<br><br>Affected Modules<br>"); }
+		if ($test) { print("<br><br>Betroffene Module<br>"); }
 		$query_args = array(
 				 'post_type' => 'module'
 				,'post_parent' => $unitid
@@ -362,13 +362,13 @@ function ema_modal_window_admin_style($hook) {
 					$trans_mpage = $trans[$mpage];
 					if($test) print(" -> $trans_mpage");
 				} else {
-					$errortext .= "<p>Error EMA05 'in modules': Old page no $mpage (from module $mid) does not exist in transform array $transprint</p>";
+					$errortext .= "<p>Fehler EMA05 'in Modulen': Die alte Seite no $mpage (vom Modul $mid) ist im Transformationsarray $transprint nicht vorhanden</p>";
 				}
 				if($test) print("</p>");
 				// update page info in modules
 				if(!$check)  update_post_meta( $mid , 'module_page', $trans_mpage);	
 			} else {
-				if ($test) print_r("<br>Post ($mid) does not exist or does not have meta key module_page.");
+				if ($test) print_r("<br>Post ($mid) existiert nicht oder hat keinen Metaschlüssel module_page.");
 			}
 		} 
 
@@ -376,7 +376,7 @@ function ema_modal_window_admin_style($hook) {
 		// Data from Unit ---------------------------------------
 		$unitMeta = get_post_meta( $unitid );
 		
-		if ($test) print("<br><br>Unit Page Titles<br>");
+		if ($test) print("<br><br>Einheitenseitentitel<br>");
 		$page_title_array = unserialize( $unitMeta['page_title'][0] );
 		if(!isset($page_title_array) || is_null($page_title_array))
 			$page_title_array= [];
@@ -387,7 +387,7 @@ function ema_modal_window_admin_style($hook) {
 			if(array_key_exists($tmparr[1], $trans))
 				$upmNew = $tmparr[0].'_'.$trans[$tmparr[1]];
 			else
-				$errortext .= "<p>Error EMA06 'in unit page titles': Old page no $tmparr[1] (from page $pm) does not exist in transform array $transprint</p>";
+				$errortext .= "<p>Fehler EMA06 'in Einheitenseitentitel': Die alte Seite no $tmparr[1] (ab Seite $pm) ist im Transformationsarray $transprint nicht vorhanden</p>";
 			$trans_page_title_array[$upmNew] = $text;
 		}
 		if ($test) { print_r( $page_title_array);print("<br>"); }
@@ -398,7 +398,7 @@ function ema_modal_window_admin_style($hook) {
 		if(!$check) update_post_meta($unitid, 'page_title', $trans_page_title_array);
 		
 		
-		if ($test) print("<br><br>Unit Show Page Titles<br>");
+		if ($test) print("<br><br>Einheit Seitentitel anzeigen<br>");
 		$show_page_title_array = unserialize( $unitMeta['show_page_title'][0] );
 		if(!isset($show_page_title_array) || is_null($show_page_title_array))
 			$show_page_title_array= [];
@@ -439,14 +439,14 @@ function ema_modal_window_admin_style($hook) {
 					$newpagenumber = $trans[$pagenumber];
 					$newkey = $newpagenumber - 1;
 				} else { 
-					$errortext .= "<p>Error EMA07 'in unit show page titles': Old page no $key does not exist in transform array $transprint</p>";
+					$errortext .= "<p>Fehler EMA07 'Einheit Seitentitel anzeigen': Alte Seite no $key existiert im Transformationsarray $transprint nicht</p>";
 				}
 				$trans_show_page_title_array[$newkey] = $tf;
 			} else { // last element(s) untouched; not clear what it is good for
 				$trans_show_page_title_array[$key] = $tf;
 			}
 		}
-		if ($test) { print_r( $show_page_title_array);print("<br> Normalized: "); print_r($spta_normal);print("<br>"); }
+		if ($test) { print_r( $show_page_title_array);print("<br> Normalisiert: "); print_r($spta_normal);print("<br>"); }
 		if(!is_null($trans_show_page_title_array))
 			ksort( $trans_show_page_title_array);
 		if ($test) print_r( $trans_show_page_title_array);
@@ -456,7 +456,7 @@ function ema_modal_window_admin_style($hook) {
 		
 		
 		
-		if ($test) print("<br><br>Unit Page Descriptions<br>");
+		if ($test) print("<br><br>Beschreibung der Einheitenseite<br>");
 		$page_desc_array = unserialize( $unitMeta['page_description'][0] );
 		if(!isset($page_desc_array) || is_null($page_desc_array))
 			$page_desc_array= [];
@@ -467,7 +467,7 @@ function ema_modal_window_admin_style($hook) {
 			if(array_key_exists($tmparr[1], $trans))
 				$upmNew = $tmparr[0].'_'.$trans[$tmparr[1]];
 			else
-				$errortext .= "<p>Error EMA08 'in unit page descriptions': Old page no $tmparr[1] (from page $pm) does not exist in transform array $transprint</p>";
+				$errortext .= "<p>Fehler EMA08 'in Seitenbeschreibungen der Einheit': Die alte Seite Nr. $tmparr[1] (ab Seite $pm) ist im Transformationsarray $transprint nicht vorhanden</p>";
 			$trans_page_desc_array[$upmNew] = $text;
 		}
 		if ($test) { print_r( $page_desc_array);print("<br>"); }
@@ -482,7 +482,7 @@ function ema_modal_window_admin_style($hook) {
 		
 		// print link to proceed to the actual edit units page
 		if($check && $errortext != "") {
-			$errortext.= "<a href=\"$url\">Click to return to Unit Builder (without changes)</a>";
+			$errortext.= "<a href=\"$url\">Klicke hier, um zum Einheiten Builder zurückzukehren (ohne Änderungen).</a>";
 			return $errortext;
 		}
 		
