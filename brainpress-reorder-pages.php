@@ -55,7 +55,7 @@ function ema_modal_window_admin_style($hook) {
 				<header class="ema-modal-header">
 					<h1 class="ema-modal-header-title left">Einheitenabschnitte der EINHEIT neu anordnen: <span class="ema-unit-name"></span></h1>
 					<div class="ema-modal-header-buttons">
-						<button class="ema-modal-header-btn ema-modal-close" title="Modal schließen" onclick=EmaModal.close();>Cancel</button>
+						<button class="ema-modal-header-btn ema-modal-close" title="Modal schließen" onclick=EmaModal.close();>Abbrechen</button>
 						<form id="ema-reorder-form" method="get" onsubmit="return emaValidateReorderData()" action="<?php echo ((isset($_SERVER['HTTPS']) ? "https" : "http") . "://".$_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'])?>">
 							<input type="submit" class="ema-modal-header-btn ema-modal-close" value="Neuordnen!" onclick=EmaModal.close();>
 							<?php 
