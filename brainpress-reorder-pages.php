@@ -7,7 +7,12 @@ Version: 0.5
 Author: DerN3rd
 License: GPL2
 */
-
+require 'psource-plugin-update/plugin-update-checker.php';
+$MyUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+	'https://n3rds.work//wp-update-server/?action=get_metadata&slug=brainpress-reorder-pages', 
+	__FILE__, 
+	'brainpress-reorder-pages' 
+);
 // ------------------- Load additional CSS and JavaScript on the right admin pages --------
 
 add_action( 'admin_enqueue_scripts', 'ema_modal_window_admin_style' );
